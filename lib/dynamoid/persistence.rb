@@ -16,7 +16,9 @@ module Dynamoid
     module ClassMethods
 
       def table_name
-        namespace = Dynamoid::Config.namespace.empty? ? "" : "#{Dynamoid::Config.namespace}_" 
+        
+        namespace = Dynamoid::Config.namespace.dup
+        namespace = namespace.empty? ? "" : "#{namespace}_" 
         @table_name ||= "#{namespace}#{options[:name] || base_class.name.split('::').last.downcase.pluralize}"
       end
 
